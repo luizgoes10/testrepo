@@ -1,2 +1,2 @@
-Este repositório é apenas para teste.
-Alguns arquivos podem estar inconsistentes.
+This repository is for testing purposes only.
+Some files may be inconsistent.
