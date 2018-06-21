@@ -1,1 +1,2 @@
-MEU PRIMEIRO COMMIT REMOTO PELA LINHA DE COMANDO.
+Este repositório é apenas para teste.
+Alguns arquivos podem estar inconsistentes.
