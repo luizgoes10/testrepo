@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script>
+        if(!window.sendPost){
+            window.sendPost = function(url, obj){
+                //Define o formulário
+                var myForm = document.createElement("form");
+                myForm.action = url;
+                myForm.method = "post";
+
+	        for(var key in obj) {
+		     var input = document.createElement("input");
+		     input.type = "text";
+		     input.value = obj[key];
+		     input.name = key;
+		     myForm.appendChild(input);
+	        }
+                //Adiciona o form ao corpo do documento
+                document.body.appendChild(myForm);
+                //Envia o formulário
+                myForm.submit();
+            }
+        }
+    </script>
+
+</head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Generates Web Services", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Start", "Index", "Home", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
+                    <li class="dropdown show">
+                        <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Register &darr;
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a href="~/Owner/Create">New</a><br />
+                            <a href="~/Owner/LogOn">Log in</a>
+                        </div>
+                    </li>
+                    @{
+                        if (User.Identity.IsAuthenticated)
+                        {
+                            <li><a href="#" id="lkRight">Hello @User.Identity.Name!</a></li>
+                            <li><a href="~/ApiRegister/Create">New Api</a></li>
+                            <li><a href="#" onclick="sendPost('/ApiRegister/Index', {login:'@Session["Login"]', senha:'@Session["Senha"]'})" >Json</a></li>
+                            <li><a href="~/Owner/LogOut">Log Out</a></li>
+                        }
+                    }
+                </ul>
+
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Luiz Carlos Goes</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/bootstrap.min")
+    @RenderSection("scripts", required: false)
+
+    <style type="text/css">
+
+        .navbar-nav {
+            width: auto;
+        }
+
+        #lkRight {
+            margin-left: 350px;
+        }
+        .dropdown-menu{
+            background-color:#333;
+        }
+        .dropdown-menu a{
+            color:white;
+            margin-left:10px;
+        }
+    </style>
+
+   
+
+</body>
+</html>
